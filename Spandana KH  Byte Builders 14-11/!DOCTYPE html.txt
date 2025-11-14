@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blog Publishing UI</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: darkgreen;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 700px;
+        margin: 20px auto;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #222;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+        display: block;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #999;
+    }
+
+    textarea {
+        height: 120px;
+    }
+
+    button {
+        background: lightgreen;
+        border: none;
+        padding: 12px 20px;
+        margin-top: 15px;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+
+    .post {
+        background: #fafffa;
+        padding: 15px;
+        border: 1px solid #ccc;
+        margin-top: 12px;
+        border-radius: 8px;
+    }
+
+    .delete-btn {
+        background: lightgreen;
+        color: white;
+        padding: 8px 12px;
+        margin-top: 10px;
+        border-radius: 6px;
+        cursor: pointer;
+        border: none;
+    }
+</style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Publish Blog</h2>
+
+    <label>Blog Title</label>
+    <input type="text" id="title" placeholder="Enter blog title">
+
+    <label>Blog Content</label>
+    <textarea id="content" placeholder="Enter blog details"></textarea>
+
+    <label>Category</label>
+    <select id="category">
+        <option>Technology</option>
+        <option>Education</option>
+        <option>Lifestyle</option>
+        <option>Sports</option>
+        <option>Health</option>
+    </select>
+
+    <label>Author</label>
+    <input type="text" id="author" placeholder="Enter your name">
+
+    <label>Date</label>
+    <input type="date" id="date">
+
+    <button onclick="publishPost()">Publish</button>
+</div>
+
+<div class="box">
+    <h2>Manage Posts</h2>
+    <div id="postList"></div>
+</div>
+
+<script>
+function publishPost() {
+    let title = document.getElementById("title").value;
+    let content = document.getElementById("content").value;
+    let category = document.getElementById("category").value;
+    let author = document.getElementById("author").value;
+    let date = document.getElementById("date").value;
+
+    if (title.trim() === "" || content.trim() === "") {
+        alert("Title and Content are required!");
+        return;
+    }
+
+    let postCard = document.createElement("div");
+    postCard.className = "post";
+
+    postCard.innerHTML = `
+        <h3>${title}</h3>
+        <p><strong>Content:</strong> ${content}</p>
+        <p><strong>Category:</strong> ${category}</p>
+        <p><strong>Author:</strong> ${author}</p>
+        <p><strong>Date:</strong> ${date}</p>
+        <button class="delete-btn" onclick="this.parentElement.remove()">Delete</button>
+    `;
+
+    document.getElementById("postList").appendChild(postCard);
+
+    // Clear fields
+    document.getElementById("title").value = "";
+    document.getElementById("content").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("date").value = "";
+}
+</script>
+
+</body>
+</html>
